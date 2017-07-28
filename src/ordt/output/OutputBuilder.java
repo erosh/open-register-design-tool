@@ -350,14 +350,14 @@ public abstract class OutputBuilder implements OutputWriterIntf{
 
 	/** add a set of external registers to this output 
 	 * @param newRegProperties - if non-null (is ext regset, not reg), this will be set as external and used as static regProperties for output gen */
-	public void addRootExternalRegisters(RegProperties newRegProperties) { 
-		int reservedRange = updateRootExternalRegProperties(newRegProperties, false);
+	public void addRootExternalRegisters(RegProperties newRegProperties) {
+		RegNumber reservedRange = updateRootExternalRegProperties(newRegProperties, false);
 
 		addRootExternalRegisters();  // note getExternalRegBytes() is usable by child
 
 		// now bump the running address count by the reserved range
 		RegNumber newNext = new RegNumber(getExternalBaseAddress());
-		newNext.add(new RegNumber(reservedRange * getMinRegByteWidth()));
+		newNext.add(reservedRange);
 		setNextAddress(newNext);   
 		//System.out.println("addRootExternalRegisters   base=" + getExternalBaseAddress() + ", next=" + getNextAddress() + ", delta=" + extSize);
 	}
@@ -381,7 +381,7 @@ public abstract class OutputBuilder implements OutputWriterIntf{
 	 * @param newRegProperties - properties that will be updated
 	 * @param isNonRootExternal - if true, base address will be set to that of current regset else builder ext base addr will be used
 	 */
-	private int updateRootExternalRegProperties(RegProperties newRegProperties, boolean isNonRootExternal) {
+	private RegNumber updateRootExternalRegProperties(RegProperties newRegProperties, boolean isNonRootExternal) {
 		// if new regProperties, then init 
 		if (newRegProperties != null) {
 			if (!newRegProperties.isExternal()) {
@@ -400,16 +400,7 @@ public abstract class OutputBuilder implements OutputWriterIntf{
 
 		// compute size of the external group from next and stored base address
 		RegNumber extSize = getExternalRegBytes();  
-		//System.out.println("OutputBuilder addRootExternalRegisters: base=" + getExternalBaseAddress() + ", next=" + getNextAddress() + ", delta=" + extSize);
-
-		int lowBit = getAddressLowBit();  // same low bit as overall address range
-		regProperties.setExtLowBit(lowBit);  // save the low bit in external address
-		//int highBit = getAddressHighBit(repSize);
-		int range = getAddressWidth(extSize);
-		regProperties.setExtAddressWidth(range);  // set width of the external address for this group
-		int reservedRange = 1 << range;  // calc 2^n
-		//System.out.println("addRootExternalRegisters   ext addr range=" + range + ", lo bit=" + lowBit + ", new rep count=" + reservedRange);
-		return reservedRange;
+		return  extSize;
 	}
 
 	/** add a register set to this output 
