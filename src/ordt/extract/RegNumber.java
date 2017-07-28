@@ -291,13 +291,13 @@ public class RegNumber implements Comparable<RegNumber> {
 			   return vectorLenStr + "\'o" + value.toString(8);   // octal
 			if (numBase == NumBase.Dec)
 			   return vectorLenStr + "\'d" + value.toString(10);   // decimal
-		   return vectorLenStr + "\'h" + value.toString(16);   // default to hex
+		   return vectorLenStr + "\'h" + value.toString(16).toUpperCase();   // default to hex
 		}
 		else if (numFormat == NumFormat.Address) { 
-			return "0x" + value.toString(16);   // hex address output format
+			return "0x" + value.toString(16).toUpperCase();   // hex address output format
 		}
 		else {
-			if (numBase == NumBase.Hex) return value.toString(16);
+			if (numBase == NumBase.Hex) return value.toString(16).toUpperCase();
 			return value.toString();  // integer format
 		}
 	}
