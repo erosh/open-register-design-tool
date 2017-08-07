@@ -294,10 +294,10 @@ public class RegNumber implements Comparable<RegNumber> {
 		   return vectorLenStr + "\'h" + value.toString(16).toUpperCase();   // default to hex
 		}
 		else if (numFormat == NumFormat.Address) { 
-			return "0x" + value.toString(16).toUpperCase();   // hex address output format
+			return "0x" + String.format("%03X",value);   // hex address output format
 		}
 		else {
-			if (numBase == NumBase.Hex) return value.toString(16).toUpperCase();
+			if (numBase == NumBase.Hex) return value.toString(16);
 			return value.toString();  // integer format
 		}
 	}
