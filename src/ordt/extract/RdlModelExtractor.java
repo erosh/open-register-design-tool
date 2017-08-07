@@ -1046,7 +1046,10 @@ public class RdlModelExtractor extends SystemRDLBaseListener implements RegModel
 				if (ctx.getChild(1).getChildCount()>3) {
 					Integer rightIdx = Utils.strToInteger(ctx.getChild(1).getChild(3).getText(), " in instance " + activeInst.getId());
 					activeInst.setWidth(leftIdx - rightIdx + 1);  // TODO assumes lsb0						
-					activeInst.setOffset(rightIdx);  						
+					activeInst.setOffset(rightIdx);
+					if(rightIdx > leftIdx){
+						Ordt.errorExit("Instance " + activeInst.getId() + " has wrong address map [" + leftIdx + ":" + rightIdx + "]");
+					}
 				}
 				// otherwise set width only if field/reps only if fieldstruct, offset is unknown
 				else {
