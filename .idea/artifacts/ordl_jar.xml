@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ordl:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ordl_jar</output-path>
+    <root id="archive" name="ordl.jar">
+      <element id="module-output" name="ordl" />
+      <element id="extracted-dir" path="/usr/local/lib/antlr-4.5.3-complete.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

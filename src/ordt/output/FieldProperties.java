@@ -179,7 +179,7 @@ public class FieldProperties extends InstanceProperties {
 		
 		// set hw read/write properties
 		if (pList.hasProperty("hw")) {
-			String hwVal = pList.getProperty("hw");
+			String hwVal = pList.getProperty("hw").toLowerCase();
 			if (hwVal.contains("r")) setHwReadable(true);
 			else setHwReadable(false);
 			if (hwVal.contains("w")) setHwWriteable(true);
@@ -188,7 +188,7 @@ public class FieldProperties extends InstanceProperties {
 		
 		// set sw read/write properties
 		if (pList.hasProperty("sw")) {
-			String swVal = pList.getProperty("sw");
+			String swVal = pList.getProperty("sw").toLowerCase();
 			if (swVal.contains("r")) setSwReadable(true);
 			else setSwReadable(false);
 			if (swVal.contains("w")) setSwWriteable(true);
